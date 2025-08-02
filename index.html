@@ -8,62 +8,104 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       max-width: 800px;
-      margin: auto;
-      padding: 20px;
-      line-height: 1.8;
-      background-color: #f9f9f9;
-      color: #333;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #ffffff;
+      color: #333333;
+      line-height: 1.7;
     }
+
     h1, h2 {
       color: #2c3e50;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
     }
+
     a {
       color: #1e90ff;
       text-decoration: none;
     }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     .section {
       margin-bottom: 40px;
     }
+
+    ul {
+      padding-left: 20px;
+    }
+
     .tag {
-      background-color: #e1ecf4;
-      display: inline-block;
-      padding: 4px 8px;
-      margin: 2px;
-      border-radius: 5px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      padding: 2px 6px;
       font-size: 0.9em;
+      margin-right: 6px;
+    }
+
+    .profile-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <h1>👋 Hi! I’m Rafael Enrico C. Hugo</h1>
+
+  <div class="profile-container">
+    <img src="profile.jpg" alt="Rafael Hugo" class="profile-img" />
+    <p class="name">Rafael Enrico C. Hugo</p>
+  </div>
 
   <div class="section">
-    <h2>🧑‍🎓 Self-Introduction</h2>
+    <h2>Self-Introduction</h2>
     <p>Mabuhay! I’m Rafael Hugo, a passionate Computer Science student at <strong>De La Salle University</strong>, driven by a deep interest in <strong>Game Theory</strong> and <strong>Mathematical Modeling</strong>.</p>
   </div>
 
   <div class="section">
-    <h2>🧪 APQ and PCK Reflection</h2>
-    <p>My PCK results highlighted strengths in <span class="tag">independent</span>, <span class="tag">conventional</span>, and <span class="tag">investigative</span> environments—skills that are essential for <strong>Research</strong> and <strong>Software Engineering</strong>.</p>
-    <p>These insights into my personality allow me to understand where I naturally excel and where I can be placed to contribute effectively.</p>
+    <h2>APQ and PCK Reflection</h2>
+    <p>My PCK results highlighted strengths in 
+      <span class="tag">independent</span>
+      <span class="tag">conventional</span>
+      <span class="tag">investigative</span>
+      environments — skills that are essential for careers in research and software engineering.</p>
+    <p>These insights into my personality help me understand where I naturally excel and how I can contribute effectively in professional environments.</p>
   </div>
 
   <div class="section">
-    <h2>📄 Resume</h2>
-    <p><a href="YOUR_RESUME_LINK_HERE" target="_blank">View My Resume (PDF)</a></p>
+    <h2>Resume</h2>
+    <p><a href="YOUR_RESUME_LINK_HERE" target="_blank">View Resume (PDF)</a></p>
   </div>
 
   <div class="section">
-    <h2>📚 Academic Work Samples</h2>
+    <h2>Academic Work Samples</h2>
     <ul>
-      <li><strong>Project Title 1</strong> – Brief description. <a href="LINK_TO_PROJECT_1">View</a></li>
-      <li><strong>Paper Title 2</strong> – Short explanation. <a href="LINK_TO_PAPER_2">Read</a></li>
+      <li><strong>Project Title 1</strong> – Brief description of your work. <a href="LINK_TO_PROJECT_1" target="_blank">View</a></li>
+      <li><strong>Research Paper</strong> – Short summary of your paper. <a href="LINK_TO_PAPER" target="_blank">Read</a></li>
     </ul>
   </div>
 
   <div class="section">
-    <h2>📬 Contact</h2>
-    <p>Email me at: <a href="mailto:rafael@example.com">rafael@example.com</a></p>
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:rafael_hugo@dlsu.edu.ph">rafael_hugo@dlsu.edu.ph</a></p>
   </div>
+
 </body>
 </html>
