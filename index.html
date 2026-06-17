@@ -60,7 +60,9 @@
     }
 
     #projects {
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
     #projects img {
@@ -94,6 +96,13 @@
 
     #course_work p {
       text-align: justify;
+    }
+
+    #course_work video {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 10px auto;
     }
 
     h2 {
@@ -192,21 +201,35 @@
       <p class="name">Rafael Hugo</p>
       <p>I’m <strong> Rafael</strong>, currently an undergraduate Computer Science student at <strong>De La Salle University</strong>.</p>
       <!--  <p>Outside of academics, I also write Filipino poetry. </p> -->
-      <p>You can contact me through my email: <a href="mailto:rafael.whogoesthere@gmail.com">rafael.whogoesthere@gmail.com</a></p>
+      <p>You can contact me through my email: <a href="mailto:rafael.whogoesthere@gmail.com">rafael.whogoesthere@gmail.com</a> 
+        or take a look into my <a href="https://github.com/WhoGoesOnMercury">GitHub</a> profile</p>
     </div>
 
     <div class="card" id="course_work">
-      <!--
-      <h2> Publications </h2>
+      <h2>Project Portfolio</h2>
         <ul>
-          <h3><a href="https://www.fmlds.org/docs/2025-IEEE-FMLDS-Brochure.pdf">LasallEats: A Restaurant Recommendation System Mobile App for DLSU Manila Students</a> </h3>
-          <h4> Submitted to the 2025 IEEE International Conference on Future Machine Learning and Data Science (FMLDS2025) </h4>
+          <h3><a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students">
+            LasallEats: A Restaurant Recommendation System Mobile App for DLSU Manila Students</a> (Submitted to the 2025 IEEE International Conference on Future Machine Learning and Data Science)  </h3>
+            <figure>
+              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students">
+                <img src="media/images/Lasalleats.png" alt="LasallEats">
+              </a>
+            </figure>
+            <p>
+              LasallEats is a mobile app designed for De La Salle University (DLSU) Manila students that delivers personalized dining recommendations by incorporating empathic computing. 
+              The system enables users to select an image reflecting their current mood, which is classified into one of six basic emotions: 
+              anger, disgust, fear, enjoyment, sadness, or surprise. This emotional input is combined with user-defined preferences such as cuisine type, 
+              dietary restrictions, and budget constraints. Recommendations are generated using a hybrid engine that fuses content-based filtering 
+              with emotion-driven decision logic and utilizes Google Gemini for contextual recommendation. 
+              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students">
+                Link to Publication
+              </a>
+
+            </p>
         </ul>
-      -->
-     
-      <h2>Undergraduate Course Work</h2>
+
         <ul>
-          <h3><a href="https://ledgerly-ochre.vercel.app/">Ledger.ly</a> (Web application for Advanced Software Engineering Class)</h3>
+          <h3><a href="https://ledgerly-ochre.vercel.app/">Ledger.ly</a> (Web application project for Advanced Software Engineering Class)</h3>
           <figure>
             <a href="https://ledgerly-ochre.vercel.app/" target="_blank">
               <img src="media/images/ledger.ly.png" alt="ledger.ly">
@@ -216,30 +239,16 @@
             automation test scripts (Unit and E2E) using Jest and Selenium's Robot Framework respectively, and structuring the YAML/YML for
             Github Actions. Our group also utilized Trello to keep track of user stories and for reporting bugs. </p>
         </ul>
-    </div>
 
-    <div class="card" id="projects">
-      <h2>Project Bin</h2>
-        <figure>
-          <a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/C" target="_blank">
-            <img src="media/images/C_logo.png" alt="Projects in C">
-          </a>
-          <figcaption>C</figcaption>
-        </figure>
-
-        <figure>
-          <a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/Go" target="_blank">
-            <img src="media/images/Go_logo.png" alt="Projects in Go">
-          </a>
-          <figcaption>Go</figcaption>
-        </figure>
-
-        <figure>
-          <a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/Python" target="_blank">
-            <img src="media/images/Python_logo.png" alt="Projects in Python">
-          </a>
-          <figcaption>Python</figcaption>
-        </figure>
+        <ul>
+          <h3><a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/C/Data-structures-and-algorithms/Sorting-algorithms">Sorting Algorithms in C</a> (Personal project) </h3>
+          <video autoplay muted loop playsinline>
+            <source src="media/videos/C_algo.mp4" type="video/mp4">
+          </video>
+          <p>My C implementation of various sorting algorithms with sequential comparison of their run times. Repository includes individual files with commented explanations
+            for each algorithm, a header file that creates a text file filled with an unsorted pseudo-randomly generated integers, and then finally the sorted integer text file.
+          </p>
+        </ul>
     </div>
   </div>
 
