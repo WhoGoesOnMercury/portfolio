@@ -5,252 +5,244 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhoGoesThere</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f7f6;
+      background-color: #0f172a; 
       margin: 0;
       padding: 0;
-      color: #2a3b5f;
-    }
-
-    header {
-      background-color: #53ab82;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #fff;
-      flex-wrap: wrap; 
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
+      color: #cbd5e1; 
+      line-height: 1.6;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 850px;
       margin: 40px auto;
       padding: 0 20px;
     }
 
     .card {
-      background-color: #ffffff;
-      padding: 30px;
+      background-color: #1e293b; 
+      padding: 40px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
       border-radius: 12px;
-    }
-
-    #projects {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    #projects img {
-      width: 120px;
-      height: auto;
-      margin: 10px;
-      transition: transform 0.2s;
-    }
-
-    #projects img:hover {
-      transform: scale(1.05);
-    }
-
-    #projects figure {
-      display: inline-block;
-      margin: 10px;
-    }
-
-    #projects figcaption {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin: 0;
-      text-align: center;
-    }
-
-    #course_work img {
-      width: 90%;
-      height: auto;
-      margin: 10px;
-    }
-
-    #course_work p {
-      text-align: justify;
-    }
-
-    #course_work video {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 10px auto;
+      border: 1px solid #334155; 
     }
 
     h2 {
-      border-bottom: 2px solid #e1e4e8;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-      font-size: 1.4rem;
+      border-bottom: 2px solid #334155;
+      padding-bottom: 12px;
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: 1.6rem;
+      color: #f8fafc; 
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    h3 a {
+      color: #f1f5f9;
+      text-decoration: none;
     }
 
     a {
-      color: #1e5a96;
+      color: #38bdf8; 
       text-decoration: none;
-      transition: 0.2s;
+      transition: color 0.2s ease, text-decoration 0.2s ease;
     }
 
     a:hover {
-      color: #14406e;
+      color: #7dd3fc;
+      text-decoration: underline;
     }
 
     .profile-container {
       text-align: center;
-      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .profile-img {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid #53ab82;
-      margin-bottom: 15px;
+      border: 4px solid #38bdf8;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
     }
 
     .name {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      color: #f8fafc;
+      letter-spacing: -0.5px;
+    }
+
+    .profile-container p {
+      margin: 6px 0;
+      max-width: 600px;
+    }
+
+    #course_work {
+      padding-bottom: 20px;
+    }
+
+    #course_work ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0 0 45px 0;
+    }
+
+    #course_work ul:last-child {
+      margin-bottom: 10px;
+    }
+
+    #course_work figure {
+      margin: 20px 0;
+      padding: 0;
+      display: block;
+    }
+
+    #course_work img, 
+    #course_work video {
+      display: block;
+      width: 100%;
+      max-width: 550px; 
+      height: auto;
+      margin: 0 auto;
+      border-radius: 8px;
+      border: 1px solid #475569;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    #course_work img:hover {
+      transform: translateY(-2px);
+      border-color: #38bdf8;
+    }
+
+    #course_work p {
+      text-align: justify;
+      color: #94a3b8; 
+      margin: 18px 0 0 0;
+      font-size: 0.95rem;
     }
 
     @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      header h1 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-      }
-
-      nav {
-        justify-content: flex-start;
-      }
-
-      nav a {
-        margin-left: 0;
-        margin-right: 10px;
-        font-size: 0.9rem;
-      }
-
       .container {
         margin: 20px auto;
         padding: 0 15px;
       }
 
       .card {
-        padding: 20px;
-      }
-
-      #projects img {
-        width: 80px;
-      }
-
-      #course_work img {
-        width: 100%;
-      }
-
-      .profile-img {
-        width: 100px;
-        height: 100px;
+        padding: 25px 20px;
       }
 
       .name {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+      }
+
+      #course_work img, 
+      #course_work video {
+        max-width: 100%;
       }
     }
   </style>
 
-  <link rel="icon" type="image/x-icon" href="gl.ico">
+  <link rel="icon" type="image/x-icon" href="gl-rayner.ico">
 </head>
 <body>
   <div class="container">
 
     <div class="card profile-container" id="about">
-      <img src="media/images/greenlantern.jpg" alt="Rafael Hugo" class="profile-img" />
-      <p class="name">Rafael Hugo</p>
-      <p>I’m <strong> Rafael</strong>, currently an undergraduate Computer Science student at <strong>De La Salle University</strong>.</p>
-      <!--  <p>Outside of academics, I also write Filipino poetry. </p> -->
+      <img src="media/images/gl-rayner.jpg" alt="Rafael Hugo" class="profile-img" />
+      <h1 class="name">Rafael Hugo</h1>
+      <p>I’m <strong>Rafael</strong>, currently an undergraduate Computer Science student at <strong>De La Salle University</strong>.</p>
       <p>You can contact me through my email: <a href="mailto:rafael.whogoesthere@gmail.com">rafael.whogoesthere@gmail.com</a> 
-        or take a look into my <a href="https://github.com/WhoGoesOnMercury">GitHub</a> profile</p>
+        or take a look into my <a href="https://github.com/WhoGoesOnMercury" target="_blank" rel="noopener noreferrer">GitHub</a> profile.</p>
     </div>
 
     <div class="card" id="course_work">
       <h2>Project Portfolio</h2>
+      
         <ul>
-          <h3><a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students">
-            LasallEats: A Restaurant Recommendation System Mobile App for DLSU Manila Students</a> (Submitted to the 2025 IEEE International Conference on Future Machine Learning and Data Science)  </h3>
-            <figure>
-              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students">
-                <img src="media/images/Lasalleats.png" alt="LasallEats">
-              </a>
-            </figure>
-            <p>
-              LasallEats is a mobile app designed for De La Salle University (DLSU) Manila students that delivers personalized dining recommendations by incorporating empathic computing. 
-              The system enables users to select an image reflecting their current mood, which is classified into one of six basic emotions: 
-              anger, disgust, fear, enjoyment, sadness, or surprise. This emotional input is combined with user-defined preferences such as cuisine type, 
-              dietary restrictions, and budget constraints. Recommendations are generated using a hybrid engine that fuses content-based filtering 
-              with emotion-driven decision logic and utilizes Google Gemini for contextual recommendation. 
-              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students">
-                Link to Publication
-              </a>
-
-            </p>
+          <h3>
+            <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
+              LasallEats: A Restaurant Recommendation System Mobile App for DLSU Manila Students
+            </a> 
+            <span style="font-weight: normal; font-size: 0.9rem; color: #64748b; display: block; margin-top: 4px;">
+              (Submitted to the 2025 IEEE International Conference on Future Machine Learning and Data Science)
+            </span>
+          </h3>
+          <figure>
+            <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
+              <img src="media/images/Lasalleats.png" alt="LasallEats">
+            </a>
+          </figure>
+          <p>
+            LasallEats is a mobile app designed for De La Salle University (DLSU) Manila students that delivers personalized dining recommendations by incorporating empathic computing. 
+            The system enables users to select an image reflecting their current mood, which is classified into one of six basic emotions: 
+            anger, disgust, fear, enjoyment, sadness, or surprise. This emotional input is combined with user-defined preferences such as cuisine type, 
+            dietary restrictions, and budget constraints. Recommendations are generated using a hybrid engine that fuses content-based filtering 
+            with emotion-driven decision logic and utilizes Google Gemini for contextual recommendation. 
+            <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
+              Link to Publication
+            </a>
+          </p>
         </ul>
 
         <ul>
-          <h3><a href="https://ledgerly-ochre.vercel.app/">Ledger.ly</a> (Web application project for Advanced Software Engineering Class)</h3>
+          <h3>
+            <a href="https://ledgerly-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">Ledger.ly</a> 
+            <span style="font-weight: normal; font-size: 0.9rem; color: #64748b; display: block; margin-top: 4px;">
+              (Web application project for Advanced Software Engineering Class)
+            </span>
+          </h3>
           <figure>
-            <a href="https://ledgerly-ochre.vercel.app/" target="_blank">
+            <a href="https://ledgerly-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">
               <img src="media/images/ledger.ly.png" alt="ledger.ly">
             </a>
           </figure>
-          <p>I lead our group's Quality Assurance therefore I was in charge of facilitating the CI/CD pipeline, writing the 
+          <p>
+            I lead our group's Quality Assurance therefore I was in charge of facilitating the CI/CD pipeline, writing the 
             automation test scripts (Unit and E2E) using Jest and Selenium's Robot Framework respectively, and structuring the YAML/YML for
-            Github Actions. Our group also utilized Trello to keep track of user stories and for reporting bugs. </p>
+            Github Actions. Our group also utilized Trello to keep track of user stories and for reporting bugs.
+          </p>
         </ul>
 
         <ul>
-          <h3><a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/C/Data-structures-and-algorithms/Sorting-algorithms">Sorting Algorithms in C</a> (Personal project) </h3>
+          <h3>
+            <a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/C/Data-structures-and-algorithms/Sorting-algorithms" target="_blank" rel="noopener noreferrer">
+              Sorting Algorithms in C
+            </a> 
+            <span style="font-weight: normal; font-size: 0.9rem; color: #64748b; display: block; margin-top: 4px;">
+              (Personal project)
+            </span>
+          </h3>
           <video autoplay muted loop playsinline>
             <source src="media/videos/C_algo.mp4" type="video/mp4">
           </video>
-          <p>My C implementation of various sorting algorithms with sequential comparison of their run times. Repository includes individual files with commented explanations
+          <p>
+            My C implementation of various sorting algorithms with sequential comparison of their run times. Repository includes individual files with commented explanations
             for each algorithm, a header file that creates a text file filled with an unsorted pseudo-randomly generated integers, and then finally the sorted integer text file.
           </p>
         </ul>
+        
     </div>
   </div>
-
 </body>
 </html>
