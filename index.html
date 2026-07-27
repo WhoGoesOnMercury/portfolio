@@ -1,248 +1,779 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WhoGoesThere</title>
+  <title>Rafael Hugo — WhoGoesThere</title>
+  <link rel="icon" type="image/x-icon" href="gl-rayner.ico">
   <style>
-    * {
-      box-sizing: border-box;
+    @font-face {
+      font-family: 'GeistMono-Regular';
+      src: url('https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/996b00fb-4b7a-403d-8da2-ce2225450681.woff2') format('woff2');
+      font-display: swap;
     }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f172a; 
+    *, *::before, *::after {
+      border: 0;
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      color: #cbd5e1; 
+      vertical-align: baseline;
+    }
+
+    html, body {
+      --ansi-0-black: #000000;
+      --ansi-15-white: #ffffff;
+      --ansi-13-fuchsia: #ff00ff;
+      --ansi-232-gray-3: #080808;
+      --ansi-235-gray-15: #262626;
+      --ansi-237-gray-23: #3a3a3a;
+      --ansi-240-gray-35: #585858;
+      --ansi-242-gray-42: #6c6c6c;
+      --ansi-245-gray-54: #8a8a8a;
+      --ansi-248-gray-66: #a8a8a8;
+      --ansi-251-gray-78: #c6c6c6;
+      --ansi-254-gray-89: #e4e4e4;
+      --ansi-255-gray-93: #eeeeee;
+
+      --color-black: var(--ansi-0-black);
+      --color-white: var(--ansi-15-white);
+      --color-gray-54: var(--ansi-245-gray-54);
+      --color-gray-42: var(--ansi-242-gray-42);
+      --color-gray-23: var(--ansi-237-gray-23);
+      --color-gray-15: var(--ansi-235-gray-15);
+      --color-gray-23-border-alpha: rgba(58, 58, 58, 0.3);
+
+      --font-family-mono: 'GeistMono-Regular', Consolas, monaco, ui-monospace, monospace;
+      --font-size: 15px;
+
+      background: var(--theme-background);
+      color: var(--theme-text);
+      font-family: var(--font-family-mono);
+      line-height: 1.5;
+      font-size: var(--font-size);
+      font-optical-sizing: auto;
+      text-rendering: geometricPrecision;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums lining-nums;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.theme-dark {
+      --theme-background: var(--color-black);
+      --theme-text: var(--color-white);
+      --theme-border: var(--color-gray-23);
+      --theme-border-subdued: var(--color-gray-23-border-alpha);
+      --theme-focused-foreground: var(--ansi-13-fuchsia);
+      --theme-window-background: var(--color-gray-23);
+      --theme-window-shadow: var(--color-gray-15);
+      --theme-button-foreground: var(--color-gray-15);
+      --theme-button-background: var(--color-gray-23);
+      --theme-label: var(--color-gray-54);
+      --theme-muted: var(--color-gray-42);
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--theme-border); border-radius: 3px; }
+    ::selection { background: var(--theme-text); color: var(--theme-background); }
+
+    a {
+      color: var(--theme-text);
+      text-decoration: none;
+      background: transparent;
+    }
+    a:hover { color: var(--theme-focused-foreground); }
+
+    /* Window */
+    .window {
+      display: block;
+      background: var(--theme-window-background);
+      box-shadow: 1ch 1.5rem 0 0 var(--theme-window-shadow);
+      max-width: 850px;
+      margin: 40px auto;
+      min-width: min(28ch, 100%);
+    }
+
+    /* Navigation */
+    .navigation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--theme-border);
+    }
+    .nav-logo {
+      flex-shrink: 0;
+      padding: 0 1.5ch;
+      display: inline-flex;
+      align-items: center;
+      color: var(--theme-text);
+      background: var(--theme-border);
+      text-decoration: none;
+      font-family: var(--font-family-mono);
+      cursor: pointer;
+      height: 2.5rem;
+    }
+    .nav-logo:hover { background: var(--theme-focused-foreground); color: var(--theme-text); }
+    .nav-center {
+      min-width: 10%;
+      width: 100%;
+      text-align: center;
+      color: var(--theme-label);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .nav-right {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Content */
+    .content {
+      padding: 2.5rem 2.5rem 2rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 0 2px var(--theme-focused-foreground),
+        0 0 0 4px var(--theme-border);
+      flex-shrink: 0;
+    }
+    .hero-text { flex: 1; min-width: 0; }
+    .hero-name {
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.3ch;
+    }
+    .hero-location {
+      font-size: 12px;
+      color: var(--theme-label);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1ch;
+    }
+    .hero-bio {
+      color: var(--theme-label);
+      font-size: 14px;
+      margin-bottom: 1.5ch;
+      line-height: 1.6;
+    }
+    .hero-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .hero-email {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      color: var(--theme-label);
+      gap: 0.5ch;
+    }
+    .hero-email::before {
+      content: '>';
+      color: var(--theme-focused-foreground);
+    }
+
+    /* Section labels */
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--theme-label);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ActionButton */
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      outline: 0;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--font-family-mono);
+      font-size: 13px;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: var(--theme-text);
+    }
+    .action-button:hover { background: transparent; }
+    .action-button:hover .ab-hotkey { background: var(--theme-focused-foreground); }
+    .action-button:hover .ab-content {
+      box-shadow: inset 0 0 0 1px var(--theme-focused-foreground);
+      color: var(--theme-text);
+    }
+    .action-button:active .ab-hotkey { background: var(--theme-focused-foreground); }
+    .ab-hotkey {
+      background: var(--theme-button-foreground);
+      color: var(--theme-text);
+      flex-shrink: 0;
+      padding: 0.15em 0.6ch;
+      user-select: none;
+      font-size: 12px;
+    }
+    .ab-content {
+      background: var(--theme-button-background);
+      box-shadow: inset 0 0 0 1px var(--theme-button-foreground);
+      flex-shrink: 0;
+      padding: 0.15em 1ch;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      user-select: none;
+      transition: box-shadow 0.2s ease, color 0.2s ease;
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      display: block;
+      margin-bottom: 2.5rem;
+    }
+    .card-children {
+      box-shadow:
+        inset 2px 0 0 0 var(--theme-text),
+        inset -2px 0 0 0 var(--theme-text),
+        inset 0 -2px 0 0 var(--theme-text);
+      padding: 1.5rem 2ch 1.5rem;
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .card-header-left {
+      min-width: 8%;
+      width: 100%;
+      box-shadow:
+        inset 2px 0 0 0 var(--theme-text),
+        inset 0 2px 0 0 var(--theme-text);
+      padding: 0.4rem 2ch 0 1ch;
+    }
+    .card-header-right {
+      min-width: 8%;
+      width: 100%;
+      box-shadow:
+        inset -2px 0 0 0 var(--theme-text),
+        inset 0 2px 0 0 var(--theme-text);
+      padding: 0.4rem 2ch 0 1ch;
+    }
+    .card-title {
+      flex-shrink: 0;
+      padding: 0 1ch;
+      font-size: var(--font-size);
+      font-weight: 400;
+    }
+
+    /* Projects */
+    .project { margin-bottom: 2rem; }
+    .project:last-child { margin-bottom: 0; }
+    .project-heading {
+      display: flex;
+      align-items: center;
+      gap: 1ch;
+      margin-bottom: 0.5ch;
+    }
+    .project-meta {
+      font-size: 12px;
+      color: var(--theme-label);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1ch;
+    }
+    .project-media {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 1ch 0;
+      box-shadow: inset 0 0 0 1px var(--theme-border);
+      transition: box-shadow 0.2s ease;
+    }
+    .project-media:hover {
+      box-shadow: inset 0 0 0 1px var(--theme-focused-foreground);
+    }
+    .project-media-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 200px;
+      margin: 1ch 0;
+      box-shadow: inset 0 0 0 1px var(--theme-border);
+      color: var(--theme-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .project-desc {
+      color: var(--theme-label);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-top: 1ch;
+    }
+    .project-desc a {
+      color: var(--theme-text);
+      text-decoration: underline;
+      text-decoration-color: var(--theme-border);
+      text-underline-offset: 2px;
+    }
+    .project-desc a:hover {
+      color: var(--theme-focused-foreground);
+      text-decoration-color: var(--theme-focused-foreground);
+    }
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      padding: 0.25em 0.75ch;
+      background: var(--theme-focused-foreground);
+      color: var(--theme-black);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      margin-bottom: 0.5ch;
+    }
+    .project-divider {
+      border: 0;
+      border-top: 1px solid var(--theme-border);
+      margin: 2rem 0;
+    }
+    figure {
+      margin: 1ch 0;
+      padding: 0;
+      display: block;
+      text-align: center;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      border-top: 1px solid var(--theme-border);
+      border-bottom: 1px solid var(--theme-border);
+      margin-bottom: 2.5rem;
+    }
+    .stat {
+      flex: 1;
+      padding: 1.25rem 0;
+      text-align: center;
+    }
+    .stat + .stat {
+      border-left: 1px solid var(--theme-border);
+    }
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--theme-label);
+      margin-top: 0.3ch;
+    }
+
+    /* Skills */
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      padding: 0.2em 0.8ch;
+      box-shadow: inset 0 0 0 1px var(--theme-border);
+      color: var(--theme-label);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Experience */
+    .exp-item {
+      margin-bottom: 1.5rem;
+    }
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+    .exp-role {
+      font-size: 14px;
+      color: var(--theme-text);
+      margin-bottom: 0.25ch;
+    }
+    .exp-org {
+      font-size: 13px;
+      color: var(--theme-label);
+      margin-bottom: 0.25ch;
+    }
+    .exp-meta {
+      font-size: 11px;
+      color: var(--theme-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75ch;
+    }
+    .exp-desc {
+      font-size: 14px;
+      color: var(--theme-label);
       line-height: 1.6;
     }
 
-    .container {
-      max-width: 850px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .card {
-      background-color: #1e293b; 
-      padding: 40px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      border: 1px solid #334155; 
-    }
-
-    h2 {
-      border-bottom: 2px solid #334155;
-      padding-bottom: 12px;
-      margin-top: 0;
-      margin-bottom: 30px;
-      font-size: 1.6rem;
-      color: #f8fafc; 
-      font-weight: 600;
-    }
-
-    h3 {
-      font-size: 1.25rem;
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-weight: 600;
-      color: #f1f5f9;
-    }
-
-    h3 a {
-      color: #f1f5f9;
-      text-decoration: none;
-    }
-
-    a {
-      color: #38bdf8; 
-      text-decoration: none;
-      transition: color 0.2s ease, text-decoration 0.2s ease;
-    }
-
-    a:hover {
-      color: #7dd3fc;
-      text-decoration: underline;
-    }
-
-    .profile-container {
-      text-align: center;
+    /* Certifications */
+    .cert-item {
       display: flex;
-      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5ch;
+      margin-bottom: 1.25rem;
+    }
+    .cert-item:last-child {
+      margin-bottom: 0;
+    }
+    .cert-badge {
+      flex-shrink: 0;
+      display: flex;
       align-items: center;
       justify-content: center;
+      width: 36px;
+      height: 36px;
+      box-shadow: inset 0 0 0 1px var(--theme-border);
+      font-size: 14px;
+    }
+    .cert-text { flex: 1; min-width: 0; }
+    .cert-name {
+      font-size: 14px;
+      color: var(--theme-text);
+      margin-bottom: 0.25ch;
+    }
+    .cert-detail {
+      font-size: 12px;
+      color: var(--theme-label);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .profile-img {
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #38bdf8;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--theme-border);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-right {
+      font-size: 12px;
+      color: var(--theme-label);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .name {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0 0 10px 0;
-      color: #f8fafc;
-      letter-spacing: -0.5px;
-    }
-
-    .profile-container p {
-      margin: 6px 0;
-      max-width: 600px;
-    }
-
-    #course_work {
-      padding-bottom: 20px;
-    }
-
-    #course_work ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0 0 45px 0;
-    }
-
-    #course_work ul:last-child {
-      margin-bottom: 10px;
-    }
-
-    #course_work figure {
-      margin: 20px 0;
-      padding: 0;
-      display: block;
-    }
-
-    #course_work img, 
-    #course_work video {
-      display: block;
-      width: 100%;
-      max-width: 550px; 
-      height: auto;
-      margin: 0 auto;
-      border-radius: 8px;
-      border: 1px solid #475569;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    #course_work img:hover {
-      transform: translateY(-2px);
-      border-color: #38bdf8;
-    }
-
-    #course_work p {
-      text-align: justify;
-      color: #94a3b8; 
-      margin: 18px 0 0 0;
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 20px auto;
-        padding: 0 15px;
+    /* Responsive */
+    @media (max-width: 700px) {
+      .window { margin: 0; box-shadow: none; }
+      .content { padding: 2rem 1.25rem 1.5rem; }
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.25rem;
       }
-
-      .card {
-        padding: 25px 20px;
+      .hero-links { justify-content: center; }
+      .stat:nth-child(n+2) { border-left: 0; }
+      .stats { flex-wrap: wrap; }
+      .stat { flex: 1 1 33%; min-width: 0; }
+      .footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
       }
-
-      .name {
-        font-size: 1.6rem;
-      }
-
-      #course_work img, 
-      #course_work video {
-        max-width: 100%;
-      }
+      .nav-center { font-size: 10px; }
+      .cert-item { flex-direction: column; gap: 0.75ch; }
     }
   </style>
-
-  <link rel="icon" type="image/x-icon" href="gl-rayner.ico">
 </head>
-<body>
-  <div class="container">
+<body class="theme-dark">
 
-    <div class="card profile-container" id="about">
-      <img src="media/images/gl-rayner.jpg" alt="Rafael Hugo" class="profile-img" />
-      <h1 class="name">Rafael Hugo</h1>
-      <p>I’m <strong>Rafael</strong>, currently an undergraduate Computer Science student at <strong>De La Salle University</strong>.</p>
-      <p>You can contact me through my email: <a href="mailto:rafael.whogoesthere@gmail.com">rafael.whogoesthere@gmail.com</a> 
-        or take a look into my <a href="https://github.com/WhoGoesOnMercury" target="_blank" rel="noopener noreferrer">GitHub</a> profile.</p>
-    </div>
+  <div class="window">
 
-    <div class="card" id="course_work">
-      <h2>Project Portfolio</h2>
-      
-        <ul>
-          <h3>
-            <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
-              LasallEats: A Restaurant Recommendation System Mobile App for DLSU Manila Students
-            </a> 
-            <span style="font-weight: normal; font-size: 0.9rem; color: #64748b; display: block; margin-top: 4px;">
-              (Submitted to the 2025 IEEE International Conference on Future Machine Learning and Data Science)
-            </span>
-          </h3>
-          <figure>
-            <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
-              <img src="media/images/Lasalleats.png" alt="LasallEats">
+    <nav class="navigation">
+      <a href="#about" class="nav-logo">&#9670;</a>
+      <section class="nav-center">WhoGoesThere</section>
+      <div class="nav-right">
+        <a href="https://www.linkedin.com/in/rafael-hugo-b44a27354/" target="_blank" rel="noopener noreferrer" class="nav-logo">&#9741;</a>
+        <a href="https://github.com/WhoGoesOnMercury" target="_blank" rel="noopener noreferrer" class="nav-logo">&#8599;</a>
+      </div>
+    </nav>
+
+    <div class="content">
+
+      <!-- Hero -->
+      <section class="hero" id="about">
+        <img src="media/images/gl-rayner.jpg" alt="Rafael Enrico Hugo" class="hero-img" />
+        <div class="hero-text">
+          <h1 class="hero-name">Rafael Enrico Hugo</h1>
+          <div class="hero-location">Metro Manila, Philippines</div>
+          <p class="hero-bio">Computer Science student majoring in Software Technology at De La Salle University. Undergraduate researcher at the Human-X Interactions Lab. </p>
+          <div class="hero-links">
+            <span class="hero-email">rafael_hugo@dlsu.edu.ph</span>
+            <a href="https://www.linkedin.com/in/rafael-hugo-b44a27354/" target="_blank" rel="noopener noreferrer" class="action-button">
+              <span class="ab-hotkey">&#9741;</span>
+              <span class="ab-content">LinkedIn</span>
             </a>
-          </figure>
-          <p>
-            LasallEats is a mobile app designed for De La Salle University (DLSU) Manila students that delivers personalized dining recommendations by incorporating empathic computing. 
-            The system enables users to select an image reflecting their current mood, which is classified into one of six basic emotions: 
-            anger, disgust, fear, enjoyment, sadness, or surprise. This emotional input is combined with user-defined preferences such as cuisine type, 
-            dietary restrictions, and budget constraints. Recommendations are generated using a hybrid engine that fuses content-based filtering 
-            with emotion-driven decision logic and utilizes Google Gemini for contextual recommendation. 
-            <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
-              Link to Publication
+            <a href="https://github.com/WhoGoesOnMercury" target="_blank" rel="noopener noreferrer" class="action-button">
+              <span class="ab-hotkey">&#8984;</span>
+              <span class="ab-content">GitHub</span>
             </a>
-          </p>
-        </ul>
+          </div>
+        </div>
+      </section>
 
-        <ul>
-          <h3>
-            <a href="https://ledgerly-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">Ledger.ly</a> 
-            <span style="font-weight: normal; font-size: 0.9rem; color: #64748b; display: block; margin-top: 4px;">
-              (Web application project for Advanced Software Engineering Class)
-            </span>
-          </h3>
-          <figure>
-            <a href="https://ledgerly-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">
-              <img src="media/images/ledger.ly.png" alt="ledger.ly">
-            </a>
-          </figure>
-          <p>
-            I lead our group's Quality Assurance therefore I was in charge of facilitating the CI/CD pipeline, writing the 
-            automation test scripts (Unit and E2E) using Jest and Selenium's Robot Framework respectively, and structuring the YAML/YML for
-            Github Actions. Our group also utilized Trello to keep track of user stories and for reporting bugs.
-          </p>
-        </ul>
+      <!-- 01 — Projects -->
+      <div class="section-label">01 &mdash; projects</div>
 
-        <ul>
-          <h3>
-            <a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/C/Data-structures-and-algorithms/Sorting-algorithms" target="_blank" rel="noopener noreferrer">
-              Sorting Algorithms in C
-            </a> 
-            <span style="font-weight: normal; font-size: 0.9rem; color: #64748b; display: block; margin-top: 4px;">
-              (Personal project)
-            </span>
-          </h3>
-          <video autoplay muted loop playsinline>
-            <source src="media/videos/C_algo.mp4" type="video/mp4">
-          </video>
-          <p>
-            My C implementation of various sorting algorithms with sequential comparison of their run times. Repository includes individual files with commented explanations
-            for each algorithm, a header file that creates a text file filled with an unsorted pseudo-randomly generated integers, and then finally the sorted integer text file.
-          </p>
-        </ul>
-        
+      <article class="card">
+        <header class="card-header">
+          <div class="card-header-left"></div>
+          <h2 class="card-title">PROJECTS</h2>
+          <div class="card-header-right"></div>
+        </header>
+        <section class="card-children">
+
+          <!-- LineAR -->
+          <div class="project">
+            <div class="project-heading">
+              <a href="https://github.com/WhoGoesOnMercury" target="_blank" rel="noopener noreferrer" class="action-button">
+                <span class="ab-hotkey">&#9654;</span>
+                <span class="ab-content">LineAR</span>
+              </a>
+            </div>
+            <span class="project-badge">Undergraduate Thesis</span>
+            <div class="project-media-placeholder">Screenshot coming soon</div>
+            <p class="project-desc">
+              Developed an interactive computer vision system for guided linear algebra learning
+              using augmented reality. Designed projection mapping and paper tracking using OpenCV.
+              Thesis conducted under the Human-X Interactions Lab.
+            </p>
+          </div>
+
+          <hr class="project-divider">
+
+          <!-- LasallEats -->
+          <div class="project">
+            <div class="project-heading">
+              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer" class="action-button">
+                <span class="ab-hotkey">&#9654;</span>
+                <span class="ab-content">LasallEats</span>
+              </a>
+            </div>
+            <span class="project-badge">IEEE Publication</span>
+            <figure>
+              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">
+                <img src="media/images/Lasalleats.png" alt="LasallEats" class="project-media" />
+              </a>
+            </figure>
+            <p class="project-desc">
+              Developed a restaurant recommendation system using Python and Gemini 2.5 Pro.
+              Published and presented at the IEEE International Conference on Future Machine
+              Learning and Data Science.
+              <a href="https://www.researchgate.net/publication/403145731_LasallEats_A_Restaurant_Recommendation_System_Mobile_App_for_DLSU_Manila_Students" target="_blank" rel="noopener noreferrer">Publication &#8599;</a>
+            </p>
+          </div>
+
+          <hr class="project-divider">
+
+          <!-- Ledger.ly -->
+          <div class="project">
+            <div class="project-heading">
+              <a href="https://ledgerly-ochre.vercel.app/" target="_blank" rel="noopener noreferrer" class="action-button">
+                <span class="ab-hotkey">&#9654;</span>
+                <span class="ab-content">Ledger.ly</span>
+              </a>
+            </div>
+            <span class="project-badge">Software QA</span>
+            <figure>
+              <a href="https://ledgerly-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <img src="media/images/ledger.ly.png" alt="Ledger.ly" class="project-media" />
+              </a>
+            </figure>
+            <p class="project-desc">
+              Led Quality Assurance for an agile software development project.
+              Developed automated testing using Jest and Selenium. Configured GitHub Actions
+              for CI/CD testing.
+            </p>
+          </div>
+
+          <hr class="project-divider">
+
+          <!-- Distributed System -->
+          <div class="project">
+            <div class="project-heading">
+              <a href="https://github.com/WhoGoesOnMercury" target="_blank" rel="noopener noreferrer" class="action-button">
+                <span class="ab-hotkey">&#9654;</span>
+                <span class="ab-content">Distributed System</span>
+              </a>
+            </div>
+            <span class="project-badge">Academic Project</span>
+            <a target="_blank" rel="noopener noreferrer">
+                <img src="media/images/Fault_tolerance.png" alt="faul_tolerance" class="project-media" />
+              </a>
+            <p class="project-desc">
+              Implemented a fault-tolerant distributed system in Go utilizing gRPC for efficient
+              inter-node RPC communication. Engineered fault-tolerance mechanisms to maintain
+              system availability and state consistency during node failures. Designed service
+              interfaces using Protocol Buffers.
+            </p>
+          </div>
+
+          <hr class="project-divider">
+
+          <!-- Algorithms in C -->
+          <div class="project">
+            <div class="project-heading">
+              <a href="https://github.com/WhoGoesOnMercury/project-bin/tree/main/C/Data-structures-and-algorithms/Sorting-algorithms" target="_blank" rel="noopener noreferrer" class="action-button">
+                <span class="ab-hotkey">&#9654;</span>
+                <span class="ab-content">Algorithms and Data Structures in C</span>
+              </a>
+            </div>
+            <span class="project-badge">Personal Project</span>
+            <figure>
+              <video autoplay muted loop playsinline class="project-media">
+                <source src="media/videos/C_algo.mp4" type="video/mp4">
+              </video>
+            </figure>
+            <p class="project-desc">
+              Implemented sorting algorithms and fundamental data structures from scratch.
+              Documented algorithm analysis and implementation details.
+            </p>
+          </div>
+
+        </section>
+      </article>
+
+      <!-- 02 — Skills -->
+      <div class="section-label">02 &mdash; skills</div>
+
+      <article class="card">
+        <header class="card-header">
+          <div class="card-header-left"></div>
+          <h2 class="card-title">SKILLS</h2>
+          <div class="card-header-right"></div>
+        </header>
+        <section class="card-children">
+
+          <div class="skills-list">
+            <span class="skill-tag">Go</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">gRPC</span>
+            <span class="skill-tag">Protocol Buffers</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">CI/CD</span>
+            <span class="skill-tag">Jest</span>
+            <span class="skill-tag">Selenium</span>
+            <span class="skill-tag">OpenCV</span>
+            <span class="skill-tag">PaddleOCR</span>
+            <span class="skill-tag">Automated Testing</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Distributed Systems</span>
+            <span class="skill-tag">Fault Tolerance</span>
+            <span class="skill-tag">Jupyter Notebook</span>
+            <span class="skill-tag">LaTeX</span>
+          </div>
+
+        </section>
+      </article>
+
+      <!-- 03 — Experience -->
+      <div class="section-label">03 &mdash; experience</div>
+
+      <article class="card">
+        <header class="card-header">
+          <div class="card-header-left"></div>
+          <h2 class="card-title">EXPERIENCE</h2>
+          <div class="card-header-right"></div>
+        </header>
+        <section class="card-children">
+
+          <div class="exp-item">
+            <div class="exp-role">Undergraduate Researcher</div>
+            <div class="exp-org">Human-X Interactions Lab (HXIL)</div>
+            <div class="exp-meta">Manila, Philippines &mdash; Present</div>
+            <p class="exp-desc">Contributor to laboratory research software and undergraduate thesis on augmented reality for linear algebra learning.</p>
+          </div>
+
+        </section>
+      </article>
+
+      <!-- 04 — Certifications -->
+      <div class="section-label">04 &mdash; certifications</div>
+
+      <article class="card">
+        <header class="card-header">
+          <div class="card-header-left"></div>
+          <h2 class="card-title">CERTIFICATIONS</h2>
+          <div class="card-header-right"></div>
+        </header>
+        <section class="card-children">
+
+          <div class="cert-item">
+            <div class="cert-badge">&#9733;</div>
+            <div class="cert-text">
+              <div class="cert-name">Career Service Professional Examination</div>
+              <div class="cert-detail">March 2026 &mdash; Passer (92.74%)</div>
+            </div>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-badge">&#9733;</div>
+            <div class="cert-text">
+              <div class="cert-name">IEEE FMLDS 2025 Paper Presenter</div>
+              <div class="cert-detail">International Conference on Future Machine Learning and Data Science</div>
+            </div>
+          </div>
+
+        </section>
+      </article>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <a href="#about" class="action-button">
+          <span class="ab-hotkey">&#9167;</span>
+          <span class="ab-content">Back to top</span>
+        </a>
+        <div class="footer-right">Rafael Enrico Hugo &copy; 2026</div>
+      </footer>
+
     </div>
   </div>
+
+
 </body>
 </html>
